@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/2dons1/2-Projekt-WIM2#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "sqlite3": "^5.0.2"
   }
 }

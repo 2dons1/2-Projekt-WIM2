@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 3000
+const db = require("./database.js")
 
 express()
 
@@ -21,5 +22,19 @@ express()
   })
   .get('/3', function(req, res){
     res.send("Vanjski XML entiteti (XML External Entity, XXE)");
+  })
+  .get("/api/users", (req, res, next) => {
+    var sql = "select * from user"
+    var params = []
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
