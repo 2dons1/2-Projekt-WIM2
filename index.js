@@ -23,8 +23,8 @@ express()
   .get('/3', function(req, res){
     res.send("Vanjski XML entiteti (XML External Entity, XXE)");
   })
-  .get("/api/users", (req, res, next) => {
-    var sql = "select * from user"
+  .get("/movies", (req, res, next) => {
+    var sql = "select * from movies"
     var params = []
     db.all(sql, params, (err, rows) => {
         if (err) {
