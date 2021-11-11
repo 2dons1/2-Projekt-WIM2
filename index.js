@@ -24,17 +24,16 @@ express()
     res.send("Vanjski XML entiteti (XML External Entity, XXE)");
   })
   .get("/movies", (req, res, next) => {
-    var sql = "select * from movies"
+    var sql = "select * from movies order by id asc"
     var params = []
     db.all(sql, params, (err, rows) => {
         if (err) {
           res.status(400).json({"error":err.message});
           return;
         }
-        res.json({
-            "message":"success",
-            "data":rows
-        })
+        res.render("movies", {
+          movies: rows
+        });
       });
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
