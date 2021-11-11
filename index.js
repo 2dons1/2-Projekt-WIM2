@@ -9,7 +9,7 @@ express()
   .use(express.json())
   .set("view engine", "ejs")
   .get('/', function(req, res){
-    res.send("Hello World 12345");
+    res.send("Hello World 123456");
   })
   .get('/', function(req, res){
     res.send("2 Projekt iz WIM2");
