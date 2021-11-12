@@ -13,6 +13,15 @@
     <h1> 2. Projekt iz "Napredni razvoj programske potpore za web" </h1>
     <h2> SQL umetanje (SQL Injection) </h2>
 
+      <form id="movie_form" method="POST" action="/movies">
+        <p>Pronadi film prema rijeci iz naziva!</p>
+        <input type="text" name="movie_name">
+        <input type="submit" value="Klikni Me!">
+      </form>
+
+      <br>
+      <hr>
+      <% if(valid){ %>
       <table style="width:100%">
         <tr>
           <th>Id</th>
@@ -31,6 +40,8 @@
           </tr>
        <% } %>
       </table>
+      <% } %>
+      
 
 </body>
 </html>

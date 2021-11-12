@@ -1,7 +1,10 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const path = require('path')
 const PORT = process.env.PORT || 3000
 const db = require("./database.js")
+
+var urlencodedParser = bodyParser.urlencoded({extended: false})
 
 express()
 
@@ -24,15 +27,27 @@ express()
     res.send("Vanjski XML entiteti (XML External Entity, XXE)");
   })
   .get("/movies", (req, res, next) => {
-    var sql = "select * from movies order by id asc"
+    res.render("movies", {
+      movies: {},
+      valid: false
+    })
+  })
+  .post('/movies', urlencodedParser, function(req, res){
+    var name = req.body['movie_name']
+    var sql = "select * from movies where lower(name) like '%" + name.toLowerCase() + "%'"
     var params = []
     db.all(sql, params, (err, rows) => {
         if (err) {
-          res.status(400).json({"error":err.message});
-          return;
+          console.log(err.message)
+          res.render("movies", {
+            movies: rows,
+            valid: false
+          });
+          return
         }
         res.render("movies", {
-          movies: rows
+          movies: rows,
+          valid: true
         });
       });
   })

