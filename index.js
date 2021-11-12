@@ -48,10 +48,10 @@ express()
   })
   .get('/test', function(req, res){
     var xml = '<document attribute="value"><name>David Bowie</name></document>';
-    var xxe = '<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY bar "World "><!ENTITY t1 "&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;"><!ENTITY t2 "&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;"><!ENTITY t3 "&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;">]><foo>Hello &t3;&t3;&t3;&t3;&t3;&t3;</foo>';
+    var xxe = '<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY bar "World "><!ENTITY t1 "&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;"><!ENTITY t2 "&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;"><!ENTITY t3 "&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;">]><foo>Hello &t3;&t3;&t3;&t3;&t3;&t3;</foo>';
     var xxe2 = '<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE bar [<!ELEMENT foo ANY ><!ENTITY xxe SYSTEM "file:///c:/boot.ini">]><bar>&xxe;</bar>'
     var doc = pjXML.parse(xml)
-    var doc2 = pjXML.parse(xxe2)
+    var doc2 = pjXML.parse(xxe)
     res.send(doc2) // ["content"][3]["content"][0]
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
