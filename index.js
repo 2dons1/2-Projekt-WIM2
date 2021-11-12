@@ -34,6 +34,12 @@ express()
   })
   .post('/movies', urlencodedParser, function(req, res){
     var name = req.body['movie_name']
+    var security = req.body['security']
+
+    if(security == 'sigurno'){
+      name = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, " ");
+    }
+    console.log(name)
     var sql = "select * from movies where lower(name) like '%" + name.toLowerCase() + "%'"
     var params = []
     db.all(sql, params, (err, rows) => {

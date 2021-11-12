@@ -15,6 +15,11 @@
 
       <form id="movie_form" method="POST" action="/movies">
         <p>Pronadi film prema rijeci iz naziva!</p>
+        
+        <legend>Odaberi razinu sigurnosti?</legend>
+        <input type="radio" name="security" value="nesigurno" checked>Nesigurno<br>
+        <input type="radio" name="security" value="sigurno">Sigurno<br>
+
         <input type="text" name="movie_name">
         <input type="submit" value="Klikni Me!">
       </form>
