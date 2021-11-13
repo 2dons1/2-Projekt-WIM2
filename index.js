@@ -5,6 +5,7 @@ const db = require("./database.js")
 var urlencodedParser = bodyParser.urlencoded({extended: false})
 const PORT = process.env.PORT || 3000
 var pjXML = require('pjxml');
+var parseString = require('xml2js').parseString;
  
 express()
 
@@ -15,13 +16,13 @@ express()
   .get('/', function(req, res){
     res.send("2 Projekt iz WIM2");
   })
-  .get("/movies", (req, res, next) => {
+  .get("/sql", (req, res, next) => {
     res.render("movies", {
       movies: {},
       valid: false
     })
   })
-  .post('/movies', urlencodedParser, function(req, res){
+  .post('/sql', urlencodedParser, function(req, res){
     var name = req.body['movie_name']
     var security = req.body['security']
 
@@ -45,6 +46,34 @@ express()
           valid: true
         });
       });
+  })
+  .get('/xml', function(req, res){
+    res.render("xml", {
+      document: ""
+    });
+  })
+  .post('/xml', urlencodedParser, function(req, res){
+    var xml = req.body['xml']
+    var security = req.body['security']
+    
+    if(security == 'sigurno'){
+      parseString(xml, function (err, result) {
+        var data = JSON.stringify(result);
+        res.render("xml", {
+          document: data
+        })
+    });
+    }
+    else{
+      var doc = pjXML.parse(xml)
+      var data = JSON.stringify(doc);
+      console.log(doc)
+      console.log(data)
+      res.render("xml", {
+        document: data
+      });
+    }
+    
   })
   .get('/test', function(req, res){
     var xml = '<document attribute="value"><name>David Bowie</name></document>';

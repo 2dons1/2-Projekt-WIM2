@@ -7,6 +7,26 @@
 <body>
     <h1> 2. Projekt iz "Napredni razvoj programske potpore za web" </h1>
     <h2> Vanjski XML entiteti (XML External Entity, XXE) </h2>
+
+    <form id="movie_form" method="POST" action="/xml">
+      <p>Pretvori XML u JSON!</p>
+      
+      <legend>Odaberi razinu sigurnosti?</legend>
+      <input type="radio" name="security" value="nesigurno" checked>Nesigurno<br>
+      <input type="radio" name="security" value="sigurno">Sigurno<br>
+      <br>
+      
+      <textarea id="xml" name="xml" rows="10" cols="100"></textarea>
+      <br>
+      <br>
+
+      <input type="submit" value="Pretvori u JSON!">
+      
+      <br>
+      <br>
+      <textarea id="json" name="json" rows="10" cols="100"><%=document%></textarea>
+
+    </form>
       
 
 </body>
