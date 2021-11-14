@@ -3,14 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>2.Projekt</title>
+
 </head>
-<style>
-  table, th, td {
-    border:1px solid black;
-  }
-</style>
 <body>
-      <% if(sigurnost){ %>
+    
+    <% if(sigurnost){ %>
         <button id="security" onclick="myFunction()" class="button" style="background-color: green; border: none;
         color: white;
         padding: 15px 32px;
@@ -29,44 +26,7 @@
         font-size: 16px;">Stranica nije sigurna</button>
     <% } %>
 
-    <h1> 2. Projekt iz "Napredni razvoj programske potpore za web" </h1>
-    <h2> SQL umetanje (SQL Injection) </h2>
-
-      <form id="movie_form" method="POST" action="/sql">
-        <p>Pronadi film prema rijeci iz naziva!</p>
-        
-        <!-- <legend>Odaberi razinu sigurnosti?</legend>
-        <input type="radio" name="security" value="nesigurno" checked>Nesigurno<br>
-        <input type="radio" name="security" value="sigurno">Sigurno<br> !-->
-
-        <input type="text" name="movie_name">
-        <input type="submit" value="Pronadi Flimove!">
-      </form>
-
-      <br>
-      <hr>
-      <% if(valid){ %>
-      <table style="width:100%">
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Genre</th>
-          <th>Director</th>
-          <th>Year</th>
-        </tr>
-        <% for(var i=0; i < movies.length; i++) { %>
-          <tr>
-            <td><%= movies[i]["id"] %></td>
-            <td><%= movies[i]["name"] %></td>
-            <td><%= movies[i]["genre"] %></td>
-            <td><%= movies[i]["director"] %></td>
-            <td><%= movies[i]["year"] %></td>
-          </tr>
-       <% } %>
-      </table>
-      <% } %>
-      
-      <script>
+    <script>
         async function myFunction() {
           const options = {
               method: 'POST',
@@ -85,6 +45,7 @@
           }
         }
     </script>
+
 </body>
 </html>
 

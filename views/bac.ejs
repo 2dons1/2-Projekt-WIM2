@@ -24,24 +24,17 @@
         font-size: 16px;">Stranica nije sigurna</button>
     <% } %>
     <h1> 2. Projekt iz "Napredni razvoj programske potpore za web" </h1>
-    <h2> Vanjski XML entiteti (XML External Entity, XXE) </h2>
+    <h2> Loša kontrola pristupa (Broken Access Control) </h2>
 
-    <form id="movie_form" method="POST" action="/xml">
-      <p>Pretvori XML u JSON!</p>
-      
-      <!-- <legend>Odaberi razinu sigurnosti?</legend>
-        <input type="radio" name="security" value="nesigurno" checked>Nesigurno<br>
-        <input type="radio" name="security" value="sigurno">Sigurno<br> !-->
-      
-      <textarea id="xml" name="xml" rows="10" cols="100"></textarea>
-      <br>
-      <br>
+    <form id="bcs" method="POST" action="/public">
 
-      <input type="submit" value="Pretvori u JSON!">
+      <legend>Odaberi razinu sigurnosti?</legend>
+      <input type="radio" name="security" value="nesigurno" checked>Nesigurno<br>
+      <input type="radio" name="security" value="sigurno">Sigurno<br>
+
+      <br>
       
-      <br>
-      <br>
-      <textarea id="json" name="json" rows="10" cols="100"><%=document%></textarea>
+      <input type="submit" value="Dohvati random JSON!">
 
     </form>
     <script>
