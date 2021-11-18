@@ -96,9 +96,6 @@ express()
     var name = req.body['movie_name']
     var security = req.body['security']
 
-    // if(security == 'sigurno'){
-    //  name = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, " ");
-    //}
     if(testiranje){
       name = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, " ");
     }
@@ -144,8 +141,6 @@ express()
     else{
       var doc = pjXML.parse(xml)
       var data = JSON.stringify(doc);
-      // console.log(doc)
-      // console.log(data)
       res.render("xml", {
         document: data,
         sigurnost: testiranje
