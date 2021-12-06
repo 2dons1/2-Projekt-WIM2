@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2.Projekt</title>
+
+</head>
+<body>
+
+    <div id="safe">
+        <p>Nemate pravo pristupa ovim podacima!</p>
+    </div>
+
+    <div id="unsafe">
+        <p>Ovo su osjetljivi podaci!</p>
+    </div>
+
+    <script>
+        // Check browser support
+        if (typeof(Storage) !== "undefined") {
+            // Store
+            
+            if(localStorage.getItem("security") == null){
+                localStorage.setItem("security", "safe");
+            }
+        } 
+        else {
+            console.log("Sorry, your browser does not support Web Storage...");
+        }
+        if(localStorage.getItem("security") == "safe"){
+            document.getElementById("unsafe").style.display = "none";
+        }
+        else{
+            document.getElementById("safe").style.display = "none";
+        }
+        
+
+    </script>
+
+</body>
+</html>
+

@@ -80,10 +80,10 @@ express()
     });
   })
   .get('/private', function(req, res){
-    res.send(private);
+    res.render('private');
   })
   .post('/public', function(req, res){
-    res.send(public);
+    res.render("public");
   })
   .get("/sql", (req, res, next) => {
     res.render("movies", {
@@ -94,12 +94,11 @@ express()
   })
   .post('/sql', urlencodedParser, function(req, res){
     var name = req.body['movie_name']
-    var security = req.body['security']
+    var sigurnost = req.body["sigurnost"]
 
-    if(testiranje){
+    if(sigurnost == "safe"){
       name = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, " ");
     }
-    console.log(name)
     var sql = "select * from movies where lower(name) like '%" + name.toLowerCase() + "%'"
     var params = []
     db.all(sql, params, (err, rows) => {
@@ -127,9 +126,9 @@ express()
   })
   .post('/xml', urlencodedParser, function(req, res){
     var xml = req.body['xml']
-    var security = req.body['security']
+    var sigurnost = req.body["sigurnost"]
     
-    if(testiranje){
+    if(sigurnost == "safe"){
       parseString(xml, function (err, result) {
         var data = JSON.stringify(result);
         res.render("xml", {
@@ -140,6 +139,8 @@ express()
     }
     else{
       var doc = pjXML.parse(xml)
+      console.log(doc.text());
+      console.log(doc.xml());
       var data = JSON.stringify(doc);
       res.render("xml", {
         document: data,

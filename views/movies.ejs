@@ -10,26 +10,8 @@
   }
 </style>
 <body>
-      <% if(sigurnost){ %>
-        <button id="security" onclick="myFunction()" class="button" style="background-color: green; border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;">Stranica je sigurna</button>
-    <% } %>
-    <% if(!sigurnost){ %>
-        <button id="security" onclick="myFunction()" style="background-color: red; border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;">Stranica nije sigurna</button>
-    <% } %>
-
-    <br>
+    <button id="local_security" onclick="localSecurity()" class="button1">Promjeni sigurnost aplikacije</button>
+    <p id="sigurnost" form="movie_form" name="test"></p>
     <a href="/">Home</a><br>
 
     <h1> 2. Projekt iz "Napredni razvoj programske potpore za web" </h1>
@@ -37,12 +19,9 @@
 
       <form id="movie_form" method="POST" action="/sql">
         <p>Pronadi film prema rijeci iz naziva!</p>
-        
-        <!-- <legend>Odaberi razinu sigurnosti?</legend>
-        <input type="radio" name="security" value="nesigurno" checked>Nesigurno<br>
-        <input type="radio" name="security" value="sigurno">Sigurno<br> !-->
 
         <input type="text" name="movie_name">
+        <input id="test123" type="hidden" name="sigurnost" value="" />
         <input type="submit" value="Pronadi Flimove!">
       </form>
 
@@ -70,22 +49,30 @@
       <% } %>
       
       <script>
-        async function myFunction() {
-          const options = {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          }
-          const response = await fetch('/change-security', options);
-          if(document.getElementById("security").innerHTML == "Stranica je sigurna"){
-              document.getElementById("security").innerHTML = "Stranica nije sigurna";
-              document.getElementById("security").style.backgroundColor = "red";
-          }
-          else{
-              document.getElementById("security").innerHTML = "Stranica je sigurna";
-              document.getElementById("security").style.backgroundColor = "green";
-          }
+        // Check browser support
+        if (typeof(Storage) !== "undefined") {
+            // Store
+            console.log(localStorage.getItem("security"));
+            if(localStorage.getItem("security") == null){
+                localStorage.setItem("security", "safe");
+            }
+        } else {
+            console.log("Sorry, your browser does not support Web Storage...");
+        }
+        document.getElementById("sigurnost").innerHTML = localStorage.getItem("security");
+        document.getElementById("test123").value = localStorage.getItem("security");
+
+        function localSecurity(){
+            if(localStorage.getItem("security") == "safe"){
+                localStorage.setItem("security", "unsafe");
+                document.getElementById("sigurnost").innerHTML = localStorage.getItem("security");
+                document.getElementById("test123").value = localStorage.getItem("security");
+            }
+            else{
+                localStorage.setItem("security", "safe");
+                document.getElementById("sigurnost").innerHTML = localStorage.getItem("security");
+                document.getElementById("test123").value = localStorage.getItem("security");
+            }
         }
     </script>
 </body>

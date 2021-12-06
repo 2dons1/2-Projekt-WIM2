@@ -6,52 +6,13 @@
 
 </head>
 <body>
-    
-    <% if(sigurnost){ %>
-        <button id="security" onclick="myFunction()" class="button" style="background-color: green; border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;">Stranica je sigurna</button>
-    <% } %>
-    <% if(!sigurnost){ %>
-        <button id="security" onclick="myFunction()" style="background-color: red; border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;">Stranica nije sigurna</button>
-    <% } %>
-    <br>
+
+    <h1> 2. Projekt iz "Napredni razvoj programske potpore za web" </h1>
     <div>
         <a href="/sql">SQL umetanje (SQL Injection)</a><br>
         <a href="/xml">Vanjski XML entiteti (XML External Entity, XXE)</a><br>
         <a href="/bac">Loša kontrola pristupa (Broken Access Control)</a><br>
     </div>
-
-
-    <script>
-        async function myFunction() {
-          const options = {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          }
-          const response = await fetch('/change-security', options);
-          if(document.getElementById("security").innerHTML == "Stranica je sigurna"){
-              document.getElementById("security").innerHTML = "Stranica nije sigurna";
-              document.getElementById("security").style.backgroundColor = "red";
-          }
-          else{
-              document.getElementById("security").innerHTML = "Stranica je sigurna";
-              document.getElementById("security").style.backgroundColor = "green";
-          }
-        }
-    </script>
 
 </body>
 </html>
