@@ -12,7 +12,14 @@
     </div>
 
     <div id="unsafe">
-        <p>Ovo su osjetljivi podaci!</p>
+        <div>
+            <h2>User list:</h2>
+            <ul>
+                <% for(var i=0; i < data.length; i++) { %>
+                <li><%= data[i] %></li>
+                <% } %>
+            </ul>
+          </div>
     </div>
 
     <script>

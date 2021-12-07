@@ -7,59 +7,30 @@ const PORT = process.env.PORT || 3000
 var pjXML = require('pjxml');
 var parseString = require('xml2js').parseString;
 
-const public = [
-  {
-    "_id": "61902fe6490847406468e661",
-    "index": 0,
-    "guid": "2aef2514-6850-4f55-ac89-3f3d58da4066",
-    "isActive": false,
-    "balance": "$3,346.91",
-    "picture": "http://placehold.it/32x32",
-    "age": 20,
-    "eyeColor": "blue",
-    "name": "Gill Booker",
-    "gender": "male",
-    "company": "COMVOY",
-    "email": "gillbooker@comvoy.com",
-    "phone": "+1 (964) 468-2932",
-    "address": "541 Kingston Avenue, Fresno, Kansas, 564",
-    "about": "Labore ex cupidatat consequat eiusmod in ex proident. Excepteur in cupidatat enim ut qui mollit. Cillum sit aliqua quis aute commodo in anim aliquip sit deserunt. Cillum pariatur pariatur Lorem ex cillum ex amet qui nostrud amet do fugiat cillum. Officia non est elit fugiat Lorem quis duis proident duis excepteur sunt cillum. Ullamco occaecat proident aute sint labore anim eu quis consectetur in est nisi ad.\r\n",
-    "registered": "2014-01-22T03:17:02 -01:00",
-    "latitude": -62.574969,
-    "longitude": -53.114542,
-    "tags": [
-      "dolore",
-      "in",
-      "dolore",
-      "esse",
-      "pariatur",
-      "id",
-      "sunt"
-    ],
-    "friends": [
-      {
-        "id": 0,
-        "name": "Helga Dominguez"
-      },
-      {
-        "id": 1,
-        "name": "Jenna Kane"
-      },
-      {
-        "id": 2,
-        "name": "Burks Knowles"
-      }
-    ],
-    "greeting": "Hello, Gill Booker! You have 7 unread messages.",
-    "favoriteFruit": "banana"
-  }
+const user_list = [
+  "freestar", 
+  "boyscoutscattle", 
+  "lovesickmany", 
+  "childwarm", 
+  "insistenthoney", 
+  "girlfriendobliging", 
+  "cardmultiple", 
+  "testswamp", 
+  "orchidboyfriend", 
+  "cootportfolio"
+];
+const user_email_list = [
+  "freestar - rockxy@telemol.club",
+  "boyscoutscattle - havenlaw@foohurfe.com ",
+  "lovesickmany - holski@chillphet.com",
+  "childwarm - bigdaddybean007@masjoco.com",
+  "insistenthoney - b3b3b3@nugastore.com",
+  "girlfriendobliging - narcisochka@yalexonyegues.com",
+  "cardmultiple - adriian17@pubb.site",
+  "testswamp - alessandrabernascon@rlooa.com",
+  "orchidboyfriend - fasg12g@axie.ml",
+  "cootportfolio - frozenium@songshnagu.com",
 ]
-
-const private = [{
-  "title": "Jako bitan JSON, ovo samo admin smije vidit",
-  "user": "admin",
-  "password": "pa$$w0rd"
-}]
 
 var testiranje = true;
  
@@ -79,11 +50,15 @@ express()
       sigurnost: testiranje
     });
   })
-  .get('/private', function(req, res){
-    res.render('private');
+  .get('/admin/listUsers', function(req, res){
+    res.render('private', {
+      data: user_email_list
+    });
   })
-  .post('/public', function(req, res){
-    res.render("public");
+  .post('/user/listUsers', function(req, res){
+    res.render("public", {
+      data: user_list
+    });
   })
   .get("/sql", (req, res, next) => {
     res.render("movies", {
@@ -139,23 +114,16 @@ express()
     }
     else{
       var doc = pjXML.parse(xml)
-      console.log(doc.text());
-      console.log(doc.xml());
-      var data = JSON.stringify(doc);
+
+      var data = JSON.stringify(doc.xml());
+      var data1 = JSON.stringify(doc);
+      var data2 = JSON.stringify(doc.text());
       res.render("xml", {
         document: data,
         sigurnost: testiranje
       });
     }
     
-  })
-  .get('/test', function(req, res){
-    var xml = '<document attribute="value"><name>David Bowie</name></document>';
-    var xxe = '<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY bar "World "><!ENTITY t1 "&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;&bar;"><!ENTITY t2 "&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;&t1;"><!ENTITY t3 "&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;&t2;">]><foo>Hello &t3;&t3;&t3;&t3;&t3;&t3;</foo>';
-    var xxe2 = '<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE bar [<!ELEMENT foo ANY ><!ENTITY xxe SYSTEM "file:///c:/boot.ini">]><bar>&xxe;</bar>'
-    var doc = pjXML.parse(xml)
-    var doc2 = pjXML.parse(xxe)
-    res.send(doc2) // ["content"][3]["content"][0]
   })
   .post('/change-security', function(req, res){
     testiranje = !testiranje;

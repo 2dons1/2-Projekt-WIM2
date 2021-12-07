@@ -7,15 +7,15 @@
 <body>
 
     <button id="local_security" onclick="localSecurity()" class="button1">Promjeni sigurnost</button>
-    <p id="sigurnost"></p>
+    <h3 id="sigurnost"></h3>
     <a href="/">Home</a><br>
 
     <h1> 2. Projekt iz "Napredni razvoj programske potpore za web" </h1>
     <h2> Loša kontrola pristupa (Broken Access Control) </h2>
 
-    <form id="bcs" method="POST" action="/public">
+    <form id="bcs" method="POST" action="/user/listUsers">
       
-      <input type="submit" value="Dohvati javno dostupne podatke!">
+      <input type="submit" value="Dohvati popis korisnika!">
       <input id="test123" type="hidden" name="sigurnost" value="" />
 
     </form>
