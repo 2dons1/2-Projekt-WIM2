@@ -119,7 +119,7 @@ express()
       var data1 = JSON.stringify(doc);
       var data2 = JSON.stringify(doc.text());
       res.render("xml", {
-        document: data,
+        document: data2,
         sigurnost: testiranje
       });
     }
