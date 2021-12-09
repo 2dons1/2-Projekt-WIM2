@@ -27,7 +27,6 @@
 
       <br>
       <hr>
-      <% if(valid){ %>
       <table style="width:100%">
         <tr>
           <th>Id</th>
@@ -36,6 +35,7 @@
           <th>Director</th>
           <th>Year</th>
         </tr>
+        <% if(valid){ %>
         <% for(var i=0; i < movies.length; i++) { %>
           <tr>
             <td><%= movies[i]["id"] %></td>

@@ -8,7 +8,14 @@
 <body>
 
     <div id="safe">
-        <p>Nemate pravo pristupa ovim podacima!</p>
+        <form id="auth_form" method="POST" action="/auth">
+            <input type="text" name="user_name" placeholder="Username: ">
+            <br>
+            <input type="password" name="pass" placeholder="Password: ">
+            <br>
+            <input id="test123" type="hidden" name="sigurnost" value="" />
+            <input type="submit" value="Login">
+          </form>
     </div>
 
     <div id="unsafe">
