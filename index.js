@@ -56,6 +56,7 @@ const simulate_text = 'xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quo
 
 const username = "admin";
 const password = "admin"; // Mozda dodat neku jednostavnu enkripciju?
+const skripta = "<script>javascript:alert('XXE Injection!');</script>";
 
 var testiranje = true;
  
@@ -143,12 +144,18 @@ express()
       var data = JSON.stringify(doc.xml());
       var data1 = JSON.stringify(doc);
       var data2 = JSON.stringify(doc.text());
-      console.log(data1.length)
+
       if (data1.length == 161){
-        data1 = simulate_xxe
+        data2 = simulate_xxe
       }
+      data2 = data2.replace(/(?:\\[rn])+/g, "");
+      data2 = data2.replace('script&gt;', '<script>');
+      data2 = data2.replace('/script&gt;', '</script>');
+      data2 = data2.replace('&apos;', '"');
+      data2 = data2.replace('&apos;', '"');
+      // console.log(data2);
       res.render("xml", {
-        document: data1,
+        document: data2,
         sigurnost: testiranje
       });
     }
@@ -170,5 +177,11 @@ express()
     else{
       res.render("not_auth");
     }
+  })
+  .get('/js', function(req, res){
+    res.render("test", {
+      data: skripta,
+      data2: 'Dorian Doncevic'
+    })
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))

