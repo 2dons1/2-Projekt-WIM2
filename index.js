@@ -149,11 +149,11 @@ express()
         data2 = simulate_xxe
       }
       data2 = data2.replace(/(?:\\[rn])+/g, "");
-      data2 = data2.replace('script&gt;', '<script>');
-      data2 = data2.replace('/script&gt;', '</script>');
+      data2 = data2.replace('+script', '<script>');
+      data2 = data2.replace('script+', '</script>');
       data2 = data2.replace('&apos;', '"');
       data2 = data2.replace('&apos;', '"');
-      // console.log(data2);
+      console.log(data2);
       res.render("xml", {
         document: data2,
         sigurnost: testiranje
